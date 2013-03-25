@@ -19,8 +19,12 @@ public class SeleniumScriptTools {
 	private long money = 900000000;
 	private int gold1 = 900000;
 	private int gold2 = 9000;
-	private String eachStrongItemQuantity = "100";
-	private int newDefinedItemsQuantityInFile = 30;
+	private long honor = 4000;
+	private long clanSize = 50;
+	private long heroStrength = 500;
+	
+	private String eachStrongItemQuantity = "1";
+	private int newDefinedItemsQuantityInFile = 100;
 
 	public SeleniumScriptTools(ProgramInterfaceWindow interf,
 			ReadSaveSettings readSettings) {
@@ -134,32 +138,34 @@ public class SeleniumScriptTools {
 	public void addRes(String userID, String server) {
 		this.openPage(userID, server);
 		int level;
-		long ex_energy, ex_money, ex_gold, ex_level;
-		long p_energy, p_money, p_gold, p_level;
-		String a, b, c, d;
-		String s_energy, s_money, s_gold, s_level;
-		String aa, bb, cc, dd;
+		long ex_energy, ex_money, ex_gold, ex_level, ex_honor, ex_clanSize, ex_heroStrength;
+		long p_energy, p_money, p_gold, p_level, p_honor, p_clanSize, p_heroStrength;
+		String a, b, c, d, e, f, g;
+		String s_energy, s_money, s_gold, s_level, s_honor, s_clanSize, s_heroStrength;
+		String aa, bb, cc, dd, ee, ff, gg;
 		int gold;
-		boolean chkboxGold = programInterfaceWindow.isChkboxGoldSateChecked();
+		boolean chkboxGold = programInterfaceWindow.isChkboxGoldSateChecked(), x = true;
 		if (chkboxGold) {
 			gold = gold1;
 		} else {
 			gold = gold2;
 		}
-
-		if (readSaveSettings.getSettingsFromArrayByIndex(8).equals("MW")) {
-			aa = "//div[@id='player_tab']/form[3]/table/tbody/tr[12]/td[2]";
-			bb = "//div[@id='player_tab']/form[3]/table/tbody/tr[15]/td[2]";
-			cc = "//div[@id='player_tab']/form[3]/table/tbody/tr[20]/td[2]";
-			dd = "//div[@id='player_tab']/form[3]/table/tbody/tr[22]/td[2]";
-
+		
+		while (x == true) {
+		if (readSaveSettings.getSettingsFromArrayByIndex(8).equals("KA")) {
+			aa = "//div[@id='player_tab']/form[3]/table/tbody/tr[14]/td[2]";
+			bb = "//div[@id='player_tab']/form[3]/table/tbody/tr[18]/td[2]";
+			cc = "//div[@id='player_tab']/form[3]/table/tbody/tr[23]/td[2]";
+			dd = "//div[@id='player_tab']/form[3]/table/tbody/tr[25]/td[2]";
+			ee = "//div[@id='player_tab']/form[3]/table/tbody/tr[22]/td[2]";
+			ff = 	"//div[@id='player_tab']/form[3]/table/tbody/tr[29]/td[2]";
+			gg = "//div[@id='player_tab']/form[3]/table/tbody/tr[17]/td[2]";
+			x = false;
+			
 		} else {
-			aa = "//div[@id='player_tab']/form[3]/table/tbody/tr[11]/td[2]";
-			bb = "//div[@id='player_tab']/form[3]/table/tbody/tr[14]/td[2]";
-			cc = "//div[@id='player_tab']/form[3]/table/tbody/tr[17]/td[2]";
-			dd = "//div[@id='player_tab']/form[3]/table/tbody/tr[19]/td[2]";
-
-		}
+			showMassageToUser("uncheck MW check box in your settings and repeat");
+			break;
+		} 
 
 		level = Integer.parseInt(readSaveSettings.getSettingsFromArrayByIndex(6));
 	
@@ -168,6 +174,9 @@ public class SeleniumScriptTools {
 		b = driver.findElement(By.xpath(bb)).getText();
 		c = driver.findElement(By.xpath(cc)).getText();
 		d = driver.findElement(By.xpath(dd)).getText();
+		e = driver.findElement(By.xpath(ee)).getText();
+		f = driver.findElement(By.xpath(ff)).getText();
+		g = driver.findElement(By.xpath(gg)).getText();
 
 		System.out.println("gteText " + b);
 
@@ -175,6 +184,9 @@ public class SeleniumScriptTools {
 		ex_money = Long.parseLong(b);
 		ex_gold = Long.parseLong(c);
 		ex_level = Long.parseLong(d);
+		ex_honor = Long.parseLong(e);
+		ex_clanSize = Long.parseLong(f);
+		ex_heroStrength = Long.parseLong(g);
 
 		System.out.println("ex_money " + ex_money);
 
@@ -182,15 +194,18 @@ public class SeleniumScriptTools {
 		p_money = money - ex_money;
 		p_gold = gold - ex_gold;
 		p_level = level - ex_level;
-
-		System.out.println("p_money " + p_money);
+		p_honor = honor - ex_honor;
+		p_clanSize = clanSize - ex_clanSize;
+		p_heroStrength = heroStrength - ex_heroStrength;
 
 		s_energy = Long.toString(p_energy);
 		s_money = Long.toString(p_money);
 		s_gold = Long.toString(p_gold);
 		s_level = Long.toString(p_level);
+		s_honor = Long.toString(p_honor);
+		s_clanSize = Long.toString(p_clanSize);
+		s_heroStrength = Long.toString(p_heroStrength);
 
-		System.out.println("s_money " + s_money);
 
 		driver.findElement(By.name("max_energy")).clear();
 		driver.findElement(By.name("max_energy")).sendKeys(s_energy);
@@ -200,7 +215,21 @@ public class SeleniumScriptTools {
 		driver.findElement(By.name("gold")).sendKeys(s_gold);
 		driver.findElement(By.name("level")).clear();
 		driver.findElement(By.name("level")).sendKeys(s_level);
+	
+		if (driver.findElement(By.name("protect_money")).isSelected() == true) {
+			driver.findElement(By.name("protect_money")).click();
+		}
+			
+		driver.findElement(By.name("hero_strength")).clear();
+		driver.findElement(By.name("hero_strength")).sendKeys(s_heroStrength);
+		driver.findElement(By.name("clan_size")).clear();
+		driver.findElement(By.name("clan_size")).sendKeys(s_clanSize);
+		driver.findElement(By.name("respect")).clear();
+		driver.findElement(By.name("respect")).sendKeys(s_honor);
+		
 		driver.findElement(By.xpath("//input[@value='Update Player']")).click();
+		
+		}
 	}
 
 	public void newItems(String userID, String server) {
@@ -292,7 +321,7 @@ public class SeleniumScriptTools {
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
-				showMassageToUser("Provide strongest items IDs one per line to file MyItems.txt located in the same folder with the program and RETRY");
+				showMassageToUser("Provide strongest items IDs (up to 100) one per line to file MyItems.txt located in the same folder with the program and RETRY");
 			} catch (Exception e) {
 				showMassageToUser("Couldn't create file for items. Check writing permissions");
 			}
@@ -304,7 +333,7 @@ public class SeleniumScriptTools {
 			String[] k = new String[newDefinedItemsQuantityInFile ];
 			String itemID = "";
 			driver.findElement(By.name("clan_size")).clear();
-			driver.findElement(By.name("clan_size")).sendKeys("300");
+			driver.findElement(By.name("clan_size")).sendKeys("100");
 			driver.findElement(By.xpath("//input[@value='Update Player']"))
 					.click();
 			driver.findElement(By.linkText("Items")).click();

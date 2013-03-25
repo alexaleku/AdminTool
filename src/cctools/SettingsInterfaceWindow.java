@@ -31,11 +31,11 @@ public class SettingsInterfaceWindow implements ActionListener {
 
 		JLabel label3 = new JLabel("PROD");
 		linkProd = new JTextField(readSettings.getSettingsFromArrayByIndex(0), 30);
-		JLabel label4 = new JLabel("QA-001");
+		JLabel label4 = new JLabel("QA-003");
 		linkQA1 = new JTextField(readSettings.getSettingsFromArrayByIndex(1), 30);
-		JLabel label5 = new JLabel("QA-002");
+		JLabel label5 = new JLabel("QA-004");
 		linkQA2 = new JTextField(readSettings.getSettingsFromArrayByIndex(2), 30);
-		JLabel label6 = new JLabel("QA-003");
+		JLabel label6 = new JLabel("QA-005");
 		linkQA3 = new JTextField(readSettings.getSettingsFromArrayByIndex(3), 30);
 
 		JLabel label1 = new JLabel("Login:");
@@ -141,7 +141,7 @@ public class SettingsInterfaceWindow implements ActionListener {
 		if (chkbox.isSelected()) {
 			readSaveSettings.setSettingsToArrayByIndex("MW", 8);
 			} else {
-			readSaveSettings.setSettingsToArrayByIndex("CC", 8);
+			readSaveSettings.setSettingsToArrayByIndex("KA", 8);
 		}
 
 		readSaveSettings.saveSettingsToFile();

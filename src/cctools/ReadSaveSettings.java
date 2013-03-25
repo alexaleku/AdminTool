@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class ReadSaveSettings {
 	private String settingsFilename = "AdminToolSettings.txt";
 	private int numberOfSettings = 9;
-	private String[] arrayOfReadSettings = { "", "", "", "", "", "", "180", "", "CC" };
+	private String[] arrayOfReadSettings = { "", "", "", "", "", "", "180", "", "KA" };
 
 	public void readSettings() throws IOException {
 		File file = new File(settingsFilename);

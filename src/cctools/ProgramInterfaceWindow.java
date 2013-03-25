@@ -27,7 +27,7 @@ public class ProgramInterfaceWindow {
 			ddms, syndBattle;
 	private JCheckBox checkStrongest, chkboxGold;
 	private JFrame frame;
-	private String[] usersIDs = { "                   " };
+	private String[] usersIDs = { "adddafcefaa55fcf37ec68851fb9ccde96063d33", "a907c6bc80a11255b24ced52ba9d37b629e19f1d" };
 	private DefaultComboBoxModel<String> model1;
 	private DefaultComboBoxModel<String> model2;
 
@@ -61,9 +61,9 @@ public class ProgramInterfaceWindow {
 		groupUs.add(user2);
 
 		serverTB1 = new JToggleButton("PROD", true);
-		serverTB2 = new JToggleButton("QA-001");
-		serverTB3 = new JToggleButton("QA-002");
-		serverTB4 = new JToggleButton("QA-003");
+		serverTB2 = new JToggleButton("QA-003");
+		serverTB3 = new JToggleButton("QA-004");
+		serverTB4 = new JToggleButton("QA-005");
 		ButtonGroup group = new ButtonGroup();
 		group.add(serverTB1);
 		group.add(serverTB2);
@@ -158,7 +158,7 @@ public class ProgramInterfaceWindow {
 		frame.setContentPane(windowContent);
 		frame.setSize(1230, 110);
 		frame.setVisible(true);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Creating SeleniumScriptTools and Engine objects
